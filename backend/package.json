@@ -1,5 +1,5 @@
 {
-  "name": "backend", 
+  "name": "backend",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -10,5 +10,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.0"
+  }
 }
