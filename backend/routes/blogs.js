@@ -3,6 +3,8 @@ const {
   getBlogs,
   getBlog,
   createBlog,
+  deleteBlog,
+  updateBlog,
 } = require("../controllers/blogController");
 
 const router = express.Router();
@@ -17,13 +19,9 @@ router.get("/:id", getBlog);
 router.post("/", createBlog);
 
 // DELETE a single blog
-router.delete("/:id", (req, res) => {
-  res.json({ mssg: "Delete a single blog" });
-});
+router.delete("/:id", deleteBlog);
 
 // UPDATE a single blog
-router.patch("/:id", (req, res) => {
-  res.json({ mssg: "Update a blog" });
-});
+router.patch("/:id", updateBlog);
 
 module.exports = router;
