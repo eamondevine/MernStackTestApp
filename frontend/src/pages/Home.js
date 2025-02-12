@@ -8,7 +8,7 @@ const Home = () => {
       //makes the fetch from the backend api (see server file with .use method)
       //originally doing a cross origin, ran into error, proxy def added to json file
       const response = await fetch("/api/blogs");
-      const json = response.json();
+      const json = await response.json();
 
       if (response.ok) {
         //this is an array of workouts gotten from the blog controller file in the back
