@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Environment files
+.env
+
+# Log files
+*.log
+
+# Build directories (if applicable)
+dist/
+build/
+
+# Optional: ignore database files (if used)
+*.sqlite
