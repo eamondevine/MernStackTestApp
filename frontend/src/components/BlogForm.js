@@ -52,6 +52,8 @@ const BlogForm = () => {
         onChange={(e) => setBody(e.target.value)}
         value={body}
       />
+      <button>Add Blog</button>
+      {error && <div className="error">{error}</div>}
     </form>
   );
 };
