@@ -4,13 +4,17 @@ export const BlogContext = createContext();
 
 export const blogsReducer = (state, action) => {
   switch (action.type) {
-    case "SET-BLOGS":
+    case "SET_BLOGS":
       return {
         blogs: action.payload,
       };
-    case "CREATE-BLOG":
+    case "CREATE_BLOG":
       return {
         blogs: [action.payload, ...state.blogs],
+      };
+    case "DELETE_BLOG":
+      return {
+        blogs: state.blogs.filter((b) => b._id !== action.payload._id),
       };
     default:
       return state;
