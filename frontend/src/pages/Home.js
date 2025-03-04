@@ -19,7 +19,8 @@ const Home = () => {
       }
     };
     fetchBlogs();
-  }, []);
+    // done in order to solve dependency warning: if dispatch func were to change, this would run again
+  }, [dispatch]);
 
   return (
     <div className="home">

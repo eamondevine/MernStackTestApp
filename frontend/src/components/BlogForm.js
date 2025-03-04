@@ -7,6 +7,7 @@ const BlogForm = () => {
   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,12 +24,14 @@ const BlogForm = () => {
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields);
     }
     if (response.ok) {
       setTitle("");
       setAuthor("");
       setBody("");
       setError(null);
+      setEmptyFields([]);
       console.log("new blog added");
       dispatch({ type: "CREATE_BLOG", payload: json });
     }
@@ -42,18 +45,21 @@ const BlogForm = () => {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
+        className={emptyFields.includes("title") ? "error" : ""}
       />
       <label>Blog Author:</label>
       <input
         type="text"
         onChange={(e) => setAuthor(e.target.value)}
         value={author}
+        className={emptyFields.includes("author") ? "error" : ""}
       />
       <label>Blog Body:</label>
       <input
         type="text"
         onChange={(e) => setBody(e.target.value)}
         value={body}
+        className={emptyFields.includes("body") ? "error" : ""}
       />
       <button>Add Blog</button>
       {error && <div className="error">{error}</div>}

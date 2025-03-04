@@ -22,6 +22,22 @@ const getBlog = async (req, res) => {
 
 // create new blogs
 const createBlog = async (req, res) => {
+  let emptyField = [];
+  if (!title) {
+    emptyField.push("title");
+  }
+  if (!author) {
+    emptyField.push("author");
+  }
+  if (!body) {
+    emptyField.push("body");
+  }
+  if (emptyField > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please do not leave any blanks", emptyField });
+  }
+
   const { title, author, body } = req.body;
   // adds doc to db
   try {
