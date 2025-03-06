@@ -8,13 +8,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 // grabbed from my blogs.js file
 const blogRoutes = require("./routes/blogs");
+const userRoutes = require("./routes/user");
 
 // express app
 const app = express();
 
 // middleware runs between when a request is received and when a response is sent.
 // next allows this piece of middleware to move down to new middleware code
-app.use(express.json()); //This will be used later for parsing req.body
+app.use(express.json()); //This is used for parsing req.body
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 
 // routes: Now it has been updated to reflect a request to that path plus the get request path in the blogs.js file
 app.use("/api/blogs", blogRoutes);
+app.use("/api/user", userRoutes);
 
 // connect to the database
 mongoose
