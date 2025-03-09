@@ -24,7 +24,7 @@ const BlogDetails = ({ blog }) => {
         {blog.body}
       </p>
       <p>{blog.createdAt}</p>
-      <span onClick={handleClick}>Delete</span>
+      <button onClick={handleClick}>Delete</button>
     </div>
   );
 };
