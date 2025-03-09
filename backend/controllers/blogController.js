@@ -22,6 +22,7 @@ const getBlog = async (req, res) => {
 
 // create new blogs
 const createBlog = async (req, res) => {
+  const { title, author, body } = req.body;
   let emptyField = [];
   if (!title) {
     emptyField.push("title");
@@ -38,7 +39,6 @@ const createBlog = async (req, res) => {
       .json({ error: "Please do not leave any blanks", emptyField });
   }
 
-  const { title, author, body } = req.body;
   // adds doc to db
   try {
     const blog = await Blog.create({ title, author, body });

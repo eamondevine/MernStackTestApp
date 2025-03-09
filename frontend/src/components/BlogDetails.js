@@ -1,5 +1,6 @@
 import { useBlogsContext } from "../hooks/useBlogsContext";
 const BlogDetails = ({ blog }) => {
+  const { dispatch } = useBlogsContext();
   const handleClick = async () => {
     const response = await fetch("/api/blogs/" + blog._id, {
       method: "DELETE",
