@@ -7,7 +7,12 @@ const {
   updateBlog,
 } = require("../controllers/blogController");
 
+const requireAuth = require("../middleware/requireAuth");
+
 const router = express.Router();
+
+// require Auth for all following user routes
+router.use(requireAuth);
 
 // GET all the blogs
 router.get("/", getBlogs);
