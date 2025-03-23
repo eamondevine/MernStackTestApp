@@ -9,7 +9,9 @@ const BlogDetails = ({ blog }) => {
     }
     const response = await fetch("/api/blogs/" + blog._id, {
       method: "DELETE",
-      Authorization: `Bearer ${user.token}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     const json = await response.json();
 
