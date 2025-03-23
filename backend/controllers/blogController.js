@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 // get all blogs
 const getBlogs = async (req, res) => {
-  const blogs = await Blog.find({}).sort({ createdAt: -1 });
+  const user_id = req.user._id;
+  const blogs = await Blog.find({ user_id }).sort({ createdAt: -1 });
   res.status(200).json(blogs);
 };
 
@@ -41,7 +42,8 @@ const createBlog = async (req, res) => {
 
   // adds doc to db
   try {
-    const blog = await Blog.create({ title, author, body });
+    const user_id = req.user._id;
+    const blog = await Blog.create({ title, author, body, user_id });
     res.status(200).json(blog);
   } catch (error) {
     res.status(400).json({ error: error.message });
