@@ -1,9 +1,15 @@
 import { useBlogsContext } from "../hooks/useBlogsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 const BlogDetails = ({ blog }) => {
   const { dispatch } = useBlogsContext();
+  const { user } = useAuthContext();
   const handleClick = async () => {
+    if (!user) {
+      return;
+    }
     const response = await fetch("/api/blogs/" + blog._id, {
       method: "DELETE",
+      Authorization: `Bearer ${user.token}`,
     });
     const json = await response.json();
 

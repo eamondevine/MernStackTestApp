@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useBlogsContext } from "../hooks/useBlogsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const BlogForm = () => {
   const { dispatch } = useBlogsContext();
+  const { user } = useAuthContext();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
@@ -11,6 +13,10 @@ const BlogForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("You must be logged in");
+      return;
+    }
 
     const blog = { title, author, body };
 
@@ -19,6 +25,7 @@ const BlogForm = () => {
       body: JSON.stringify(blog),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
       },
     });
     const json = await response.json();

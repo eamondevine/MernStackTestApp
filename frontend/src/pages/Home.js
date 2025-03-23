@@ -1,16 +1,22 @@
 import { useEffect } from "react";
+import { useBlogsContext } from "../hooks/useBlogsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 // Import the blog details
 import BlogDetails from "../components/BlogDetails";
 import BlogForm from "../components/BlogForm";
-import { useBlogsContext } from "../hooks/useBlogsContext";
 
 const Home = () => {
   const { blogs, dispatch } = useBlogsContext();
+  const { user } = useAuthContext();
   useEffect(() => {
     const fetchBlogs = async () => {
       //makes the fetch from the backend api (see server file with .use method)
       //originally doing a cross origin, ran into error, proxy def added to json file
-      const response = await fetch("/api/blogs");
+      const response = await fetch("/api/blogs", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {
@@ -18,9 +24,12 @@ const Home = () => {
         dispatch({ type: "SET_BLOGS", payload: json });
       }
     };
-    fetchBlogs();
+
+    if (user) {
+      fetchBlogs();
+    }
     // done in order to solve dependency warning: if dispatch func were to change, this would run again
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
     <div className="home">
